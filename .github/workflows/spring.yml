@@ -19,8 +19,6 @@ jobs:
           POSTGRES_DB: cv_dev
         ports:
           - 5432:5432
-
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,9 +28,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-
-
-
 
       - name: Build with Maven
         run: mvn clean install

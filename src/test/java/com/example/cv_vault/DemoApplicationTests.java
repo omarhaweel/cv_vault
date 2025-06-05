@@ -7,11 +7,6 @@ import org.springframework.test.context.TestPropertySource;
 
 
 @SpringBootTest
-@TestPropertySource(properties = {
-		"spring.datasource.url=jdbc:postgresql://localhost:5432/cv_dev",
-		"spring.datasource.username=omarhaweel",
-		"spring.datasource.password=omha"
-})
 @ActiveProfiles("dev")
 class DemoApplicationTests {
 
