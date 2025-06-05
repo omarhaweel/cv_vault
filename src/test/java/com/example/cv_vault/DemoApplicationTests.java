@@ -15,6 +15,7 @@ import org.springframework.test.context.TestPropertySource;
 @ActiveProfiles("dev")
 class DemoApplicationTests {
 
+
 	@Test
 	void contextLoads() {
 		System.out.println("✅ Context loaded successfully!");
