@@ -1,6 +1,6 @@
-package com.example.cv_vault.repositories;
+package com.example.demo.repositories;
 
-import com.example.cv_vault.entities.Message;
+import com.example.demo.entities.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

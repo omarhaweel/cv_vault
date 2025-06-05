@@ -1,7 +1,6 @@
-package com.example.cv_vault.controllers;
+package com.example.demo.controllers;
 
 
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
