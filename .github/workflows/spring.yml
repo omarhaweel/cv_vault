@@ -1,4 +1,3 @@
-# .github/workflows/spring.yml
 name: Spring Boot CI
 
 on:
@@ -9,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -24,3 +22,10 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
+
+      - name: Upload Surefire Reports
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
