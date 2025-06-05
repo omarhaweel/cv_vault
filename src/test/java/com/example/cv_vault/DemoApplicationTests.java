@@ -9,8 +9,6 @@ import org.springframework.test.context.TestPropertySource;
 @SpringBootTest
 @ActiveProfiles("dev")
 class DemoApplicationTests {
-
-
 	@Test
 	void contextLoads() {
 		System.out.println("✅ Context loaded successfully!");
