@@ -1,7 +1,7 @@
-package com.example.demo.services;
+package com.example.cv_vault.services;
 
-import com.example.demo.entities.Message;
-import com.example.demo.repositories.MessageRepository;
+import com.example.cv_vault.entities.Message;
+import com.example.cv_vault.repositories.MessageRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

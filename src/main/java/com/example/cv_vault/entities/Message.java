@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.cv_vault.entities;
 
 import jakarta.persistence.*;
 

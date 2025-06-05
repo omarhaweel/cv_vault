@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.cv_vault.controllers;
 
 
 import org.springframework.beans.factory.annotation.Value;
