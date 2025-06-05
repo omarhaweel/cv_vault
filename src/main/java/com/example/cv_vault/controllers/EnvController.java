@@ -15,7 +15,7 @@ public class EnvController {
 
     @GetMapping
     public String getEnvName() {
-        String v = "ok";
+
         return envName;
     }
 }
