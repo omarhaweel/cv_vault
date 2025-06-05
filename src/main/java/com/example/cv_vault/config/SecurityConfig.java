@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.cv_vault.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +13,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((request) -> request
                 .requestMatchers("/api/messages").permitAll()
+                .requestMatchers("/api/env/**").permitAll()
                 .anyRequest().authenticated()
         );
         return http.build();

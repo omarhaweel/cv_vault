@@ -1,8 +1,8 @@
-package com.example.demo.controllers;
+package com.example.cv_vault.controllers;
 
 
-import com.example.demo.entities.Message;
-import com.example.demo.services.MessageService;
+import com.example.cv_vault.entities.Message;
+import com.example.cv_vault.services.MessageService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,6 +1,6 @@
-package com.example.demo.repositories;
+package com.example.cv_vault.repositories;
 
-import com.example.demo.entities.Message;
+import com.example.cv_vault.entities.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,6 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * This interface extends JpaRepository to provide CRUD operations.
  */
 public interface MessageRepository extends JpaRepository<Message, Long> {
-
 
 }
