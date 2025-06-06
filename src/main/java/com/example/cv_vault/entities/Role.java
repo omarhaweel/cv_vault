@@ -13,4 +13,23 @@ public class Role {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
     private String roleName;
+
+    public Long getUserId() {
+        return user != null ? user.getId() : null;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setUserId(Long userId) {
+        if (user == null) {
+            user = new User();
+        }
+        user.setId(userId);
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 }
