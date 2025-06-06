@@ -7,7 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EducationRepository extends JpaRepository<Education, Long> {
+    Optional<Education> getEducationById(Long id);
+
+    List<Education> findByUser_Id(Long userId);
 }

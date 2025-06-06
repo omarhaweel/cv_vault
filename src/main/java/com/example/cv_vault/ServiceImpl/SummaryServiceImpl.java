@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SummaryServiceImpl implements SummaryService {
 
-    SummaryRepository summaryRepository;
+    private final SummaryRepository summaryRepository;
 
     public SummaryServiceImpl(SummaryRepository summaryRepository) {
         this.summaryRepository = summaryRepository;

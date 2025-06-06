@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
     public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
@@ -57,6 +57,7 @@ public class RoleServiceImpl implements RoleService {
     public RoleDto toDto(Role role){
 
         RoleDto roleDto = new RoleDto();
+        roleDto.setId(role.getId());
         roleDto.setUserId(role.getUserId());
         roleDto.setRoleName(role.getRoleName());
         return roleDto;

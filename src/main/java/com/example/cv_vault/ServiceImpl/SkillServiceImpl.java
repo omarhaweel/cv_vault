@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SkillServiceImpl implements SkillService {
 
-    SkillRepository skillRepository;
+    private final SkillRepository skillRepository;
     public SkillServiceImpl(SkillRepository skillRepository) {
         this.skillRepository = skillRepository;
     }
