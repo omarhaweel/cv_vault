@@ -62,6 +62,22 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public UserDto updateUser(Long id, UserDto userDto) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setFirstName(userDto.getFirstName());
+                    user.setLastName(userDto.getLastName());
+                    user.setJobTitle(userDto.getJobTitle());
+                    user.setEmail(userDto.getEmail());
+                    user.setPhoneNumber(String.valueOf(userDto.getPhoneNumber()));
+                    user.setAddress(userDto.getAddress());
+                    user.setNationality(userDto.getNationality());
+                    user.setDrivingLicense(userDto.getDrivingLicense());
+                    return toDto(userRepository.save(user));
+                })
+                .orElse(null);
+    }
 
     /**
      * Converts a User entity to a UserDto.
