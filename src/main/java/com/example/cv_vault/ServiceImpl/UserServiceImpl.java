@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
                 .collect(toList());
     }
 
+
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = new User();
@@ -49,12 +50,23 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userDto.getLastName());
         user.setJobTitle(userDto.getJobTitle());
         user.setEmail(userDto.getEmail());
-        user.setPhoneNumber(String.valueOf(userDto.getPhoneNumber()));
+        String username = extractUsernameFromEmail(userDto.getEmail());
+        user.setUsername(username);
+        user.setPhoneNumber(userDto.getPhoneNumber());
         user.setAddress(userDto.getAddress());
         user.setNationality(userDto.getNationality());
         user.setDrivingLicense(userDto.getDrivingLicense());
-        this.userRepository.save(user);
+        user.setPassword(userDto.getPassword()); // Make sure this is hashed before
+
+        userRepository.save(user);
         return toDto(user);
+    }
+
+    private String extractUsernameFromEmail(String email) {
+        if (email != null && email.contains("@")) {
+            return email.substring(0, email.indexOf("@"));
+        }
+        return email;
     }
 
     @Override
@@ -69,6 +81,7 @@ public class UserServiceImpl implements UserService {
                     user.setFirstName(userDto.getFirstName());
                     user.setLastName(userDto.getLastName());
                     user.setJobTitle(userDto.getJobTitle());
+                    user.setUsername(userDto.getUsername());
                     user.setEmail(userDto.getEmail());
                     user.setPhoneNumber(String.valueOf(userDto.getPhoneNumber()));
                     user.setAddress(userDto.getAddress());
@@ -90,6 +103,7 @@ public class UserServiceImpl implements UserService {
         userDto.setId(user.getId());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
+        userDto.setUsername(user.getUsername());
         userDto.setJobTitle(user.getJobTitle());
         userDto.setEmail(user.getEmail());
         userDto.setPhoneNumber(user.getPhoneNumber());
@@ -98,4 +112,5 @@ public class UserServiceImpl implements UserService {
         userDto.setDrivingLicense(user.getDrivingLicense());
         return userDto;
     }
+
 }

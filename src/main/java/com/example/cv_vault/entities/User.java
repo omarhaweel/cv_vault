@@ -13,8 +13,11 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-    private String jobTitle;
     private String email;
+    @Column(unique = true)
+    private String username;
+    private String password;
+    private String jobTitle;
     private String phoneNumber;
     private String address;
     private String nationality;
@@ -79,4 +82,15 @@ public class User {
     }
 
     public void setDrivingLicense(String drivingLicense) {this.drivingLicense = drivingLicense;}
+
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

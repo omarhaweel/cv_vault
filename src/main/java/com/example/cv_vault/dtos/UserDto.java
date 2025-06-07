@@ -4,8 +4,10 @@ public class UserDto {
     private Long id;
     private String firstName;
     private String lastName;
-    private String JobTitle;
     private String email;
+    private String username;
+    private String password;
+    private String JobTitle;
     private String phoneNumber;
     private String address;
     private String nationality;
@@ -65,18 +67,26 @@ public class UserDto {
     public void setDrivingLicense(String drivingLicense) {
         this.drivingLicense = drivingLicense;
     }
+    public String getUsername() {return username;}
+    public void setUsername(String username) {this.username = username;}
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
+
     @Override
     public String toString() {
         return "UserDto{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", JobTitle='" + JobTitle + '\'' +
                 ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", JobTitle='" + JobTitle + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", nationality='" + nationality + '\'' +
                 ", drivingLicense='" + drivingLicense + '\'' +
                 '}';
     }
+
 }
