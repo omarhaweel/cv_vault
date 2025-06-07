@@ -93,4 +93,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRole() {
+        return "USER";
+    }
+
+    public void setRole(String user) {
+
+    }
 }

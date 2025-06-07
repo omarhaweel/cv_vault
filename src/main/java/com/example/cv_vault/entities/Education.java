@@ -2,6 +2,7 @@ package com.example.cv_vault.entities;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 

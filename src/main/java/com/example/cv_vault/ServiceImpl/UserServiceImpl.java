@@ -62,6 +62,10 @@ public class UserServiceImpl implements UserService {
         return toDto(user);
     }
 
+
+    /**
+     * Extracts the username from the email address.
+     */
     private String extractUsernameFromEmail(String email) {
         if (email != null && email.contains("@")) {
             return email.substring(0, email.indexOf("@"));
