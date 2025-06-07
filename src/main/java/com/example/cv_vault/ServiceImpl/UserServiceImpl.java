@@ -5,6 +5,8 @@ import com.example.cv_vault.dtos.UserDto;
 import com.example.cv_vault.entities.User;
 import com.example.cv_vault.repositories.UserRepository;
 import com.example.cv_vault.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -16,6 +18,9 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -56,8 +61,12 @@ public class UserServiceImpl implements UserService {
         user.setAddress(userDto.getAddress());
         user.setNationality(userDto.getNationality());
         user.setDrivingLicense(userDto.getDrivingLicense());
-        user.setPassword(userDto.getPassword()); // Make sure this is hashed before
-
+        // Encode the password before saving
+        if (userDto.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        } else {
+            throw new IllegalArgumentException("Password must be provided");
+        }
         userRepository.save(user);
         return toDto(user);
     }

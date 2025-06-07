@@ -1,7 +1,9 @@
 package com.example.cv_vault.controllers;
 
+import com.example.cv_vault.ServiceImpl.UserServiceImpl;
 import com.example.cv_vault.dtos.AuthRequest;
 import com.example.cv_vault.dtos.AuthResponse;
+import com.example.cv_vault.dtos.UserDto;
 import com.example.cv_vault.entities.User;
 import com.example.cv_vault.repositories.UserRepository;
 import com.example.cv_vault.security.JwtUtil;
@@ -33,22 +35,20 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private UserRepository repo;
 
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody AuthRequest request) {
-        if (repo.findByUsername(request.getUsername()).isPresent()) {
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+        if (repo.findByUsername(userDto.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("User already exists");
         }
-
-        User newUser = new User();
-        newUser.setUsername(request.getUsername());
-        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        repo.save(newUser);
+        if (repo.findByUsername(userDto.getUsername()).isPresent()) {
+            return ResponseEntity.badRequest().body("Email already exists");
+        }
+        UserDto createdUser = userServiceImpl.createUser(userDto);
         return ResponseEntity.ok("User registered");
     }
 

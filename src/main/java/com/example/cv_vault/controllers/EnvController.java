@@ -12,7 +12,7 @@ public class EnvController {
     @Value("${env.name}")
     private String envName;
 
-    @GetMapping
+    @GetMapping("/name")
     public String getEnvName() {
         return envName;
     }
