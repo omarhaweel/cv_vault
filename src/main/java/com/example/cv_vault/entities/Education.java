@@ -2,10 +2,12 @@ package com.example.cv_vault.entities;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
+@Data
 @Entity
 @Table(name = "educations")
 public class Education {
@@ -21,58 +23,14 @@ public class Education {
     private String schoolName;
     private String description;
 
-    public Long getId() {
-        return id;
+    public void setUserId(Long userId) {
+        if (this.user == null) {
+            this.user = new User();
+        }
+        this.user.setId(userId);
     }
 
     public Long getUserId() {
-        return user != null ? user.getId() : null;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public String getGrade() {
-        return Grade;
-    }
-
-    public String getSchoolName() {
-        return schoolName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setUserId(Long userId) {
-        if (user == null) {
-            user = new User();
-        }
-        user.setId(userId);
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setGrade(String grade) {
-        this.Grade = grade;
-    }
-
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+        return this.user != null ? this.user.getId() : null;
     }
 }

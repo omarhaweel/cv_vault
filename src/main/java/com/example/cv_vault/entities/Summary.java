@@ -2,9 +2,11 @@ package com.example.cv_vault.entities;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "summaries")
+@Data
 public class Summary {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -14,26 +16,14 @@ public class Summary {
     private User user;
     private String summaryText;
 
-    public Long getId() {
-        return id;
+    public void setUserId(Long userId) {
+        if (this.user == null) {
+            this.user = new User();
+        }
+        this.user.setId(userId);
     }
 
     public Long getUserId() {
-        return user != null ? user.getId() : null;
-    }
-
-    public String getSummaryText() {
-        return summaryText;
-    }
-
-    public void setUserId(Long userId) {
-        if (user == null) {
-            user = new User();
-        }
-        user.setId(userId);
-    }
-
-    public void setSummaryText(String summaryText) {
-        this.summaryText = summaryText;
+        return this.user != null ? this.user.getId() : null;
     }
 }

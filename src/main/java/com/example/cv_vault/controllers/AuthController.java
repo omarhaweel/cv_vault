@@ -4,7 +4,6 @@ import com.example.cv_vault.ServiceImpl.UserServiceImpl;
 import com.example.cv_vault.dtos.AuthRequest;
 import com.example.cv_vault.dtos.AuthResponse;
 import com.example.cv_vault.dtos.UserDto;
-import com.example.cv_vault.entities.User;
 import com.example.cv_vault.repositories.UserRepository;
 import com.example.cv_vault.security.JwtUtil;
 import com.example.cv_vault.services.CustomUserDetailsService;
@@ -15,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,20 +33,21 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private UserRepository repo;
+    private UserRepository userRepository;
 
     @Autowired
     private UserServiceImpl userServiceImpl;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserDto userDto) {
-        if (repo.findByUsername(userDto.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("User already exists");
         }
-        if (repo.findByUsername(userDto.getUsername()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email already exists");
+        if (userRepository.findUserByEmail(userDto.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body("Email already registered");
         }
-        UserDto createdUser = userServiceImpl.createUser(userDto);
+
+        userServiceImpl.createUser(userDto);
         return ResponseEntity.ok("User registered");
     }
 

@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByEmail(String email) {
-        return userRepository.findByEmail(email)
+        return userRepository.findUserByEmail(email)
                 .map(this::toDto)
                 .orElse(null);
     }
@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
         user.setAddress(userDto.getAddress());
         user.setNationality(userDto.getNationality());
         user.setDrivingLicense(userDto.getDrivingLicense());
+        user.setRole(userDto.getRole());
         // Encode the password before saving
         if (userDto.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
@@ -100,6 +101,7 @@ public class UserServiceImpl implements UserService {
                     user.setAddress(userDto.getAddress());
                     user.setNationality(userDto.getNationality());
                     user.setDrivingLicense(userDto.getDrivingLicense());
+                    user.setRole(userDto.getRole());
                     return toDto(userRepository.save(user));
                 })
                 .orElse(null);
@@ -123,6 +125,7 @@ public class UserServiceImpl implements UserService {
         userDto.setAddress(user.getAddress());
         userDto.setNationality(user.getNationality());
         userDto.setDrivingLicense(user.getDrivingLicense());
+        userDto.setRole(user.getRole());
         return userDto;
     }
 

@@ -2,11 +2,13 @@ package com.example.cv_vault.entities;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "experiences")
+@Data
 public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
