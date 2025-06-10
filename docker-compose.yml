@@ -4,7 +4,7 @@ services:
   backend:
     build: .
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - db
     environment:
@@ -19,7 +19,7 @@ services:
     image: postgres:15
     restart: always
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       POSTGRES_DB: cv_vault
       POSTGRES_USER: postgres
