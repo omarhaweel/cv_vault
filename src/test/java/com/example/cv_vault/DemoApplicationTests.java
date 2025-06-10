@@ -6,9 +6,10 @@ import org.springframework.test.context.ActiveProfiles;
 
 
 @SpringBootTest
+@ActiveProfiles("test")
 class DemoApplicationTests {
 	@Test
 	void contextLoads() {
-		System.out.println("Context loaded successfully!");
+		System.out.println("✅ Context loaded successfully!");
 	}
 }
