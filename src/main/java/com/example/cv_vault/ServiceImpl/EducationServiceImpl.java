@@ -21,7 +21,7 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public EducationDto getEducationById(Long id) {
-        return educationRepository.getEducationById(id)
+        return educationRepository.findById(id)
                 .map(this::toDto)
                 .orElseThrow(() -> new RuntimeException("Education not found with id: " + id));
     }
@@ -29,6 +29,10 @@ public class EducationServiceImpl implements EducationService {
     @Override
     public EducationDto createEducation(EducationDto educationDto) {
         Education education = new Education();
+        return getEducationDto(educationDto, education);
+    }
+
+    private EducationDto getEducationDto(EducationDto educationDto, Education education) {
         education.setUserId(educationDto.getUserId());
         education.setStartDate(educationDto.getStartDate());
         education.setEndDate(educationDto.getEndDate());
@@ -42,33 +46,27 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public EducationDto updateEducation(Long id, EducationDto educationDto) {
-        Education education = educationRepository.getEducationById(id)
+        Education education = educationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Education not found with id: " + id));
-        education.setUserId(educationDto.getUserId());
-        education.setStartDate(educationDto.getStartDate());
-        education.setEndDate(educationDto.getEndDate());
-        education.setGrade(educationDto.getGrade());
-        education.setSchoolName(educationDto.getSchoolName());
-        education.setDescription(educationDto.getDescription());
 
-        Education updatedEducation = educationRepository.save(education);
-        return toDto(updatedEducation);
+        return getEducationDto(educationDto, education);
     }
 
     @Override
     public void deleteEducation(Long id) {
-        Education education = educationRepository.getEducationById(id)
+        Education education = educationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Education not found with id: " + id));
         educationRepository.delete(education);
     }
 
     @Override
-    public List<EducationDto> findByUser_Id(Long userId) {
-        return educationRepository.findByUser_Id(userId)
-                .stream()
+    public List<EducationDto> findEducationsByUserId(Long userId) {
+        return educationRepository.findEducationsByUserId(userId).stream()
                 .map(this::toDto)
                 .collect(toList());
     }
+
+
 
     public EducationDto toDto(Education education) {
         EducationDto educationDto = new EducationDto();

@@ -25,5 +25,4 @@ public class User {
     private String nationality;
     private String drivingLicense;
     private String role;
-
 }

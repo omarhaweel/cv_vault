@@ -11,5 +11,5 @@ public interface EducationService {
     EducationDto createEducation(EducationDto educationDto);
     EducationDto updateEducation(Long id, EducationDto educationDto);
     void deleteEducation(Long id);
-    List<EducationDto> findByUser_Id(Long userId);
+    List<EducationDto> findEducationsByUserId(Long userId);
 }
