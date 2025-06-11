@@ -22,18 +22,15 @@ public class JwtUtil {
     private SecretKey secretKey;
     @PostConstruct
     public void init() {
-        System.out.println("🔐 JWT SECRET loaded length: " + (JWT_SECRET != null ? JWT_SECRET.length() : "null"));
-        if (JWT_SECRET == null || JWT_SECRET.length() < 32) {
-            throw new IllegalArgumentException("❌ JWT secret must be at least 32 characters long");
-        }
         this.secretKey = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String username) {
+    public String generateToken(UserDetails userDetails, String role) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(userDetails.getUsername())
+                .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24h
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -55,5 +52,9 @@ public class JwtUtil {
     public boolean validateToken(String token, UserDetails userDetails) {
         String username = extractUsername(token);
         return username != null && username.equals(userDetails.getUsername());
+    }
+
+    public byte[] getSecretKey() {
+        return secretKey.getEncoded();
     }
 }

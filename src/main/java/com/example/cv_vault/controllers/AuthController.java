@@ -10,14 +10,14 @@ import com.example.cv_vault.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.security.authorization.AuthorityReactiveAuthorizationManager.hasRole;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -59,11 +59,19 @@ public class AuthController {
             );
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-            String token = jwtUtil.generateToken(userDetails.getUsername());
+            String userRole = userServiceImpl.getUserByUsername(request.getUsername()).getRole();
 
+            String token = jwtUtil.generateToken(userDetails, userRole);
             return ResponseEntity.ok(new AuthResponse(token));
         } catch (AuthenticationException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
+    }
+
+
+    @PreAuthorize("hasRole('ADMIN')") // toggle between ADMIN and USER roles as needed to test
+    @GetMapping("/test")
+    public ResponseEntity<String> testAuthentication() {
+        return ResponseEntity.ok("User is authenticated");
     }
 }

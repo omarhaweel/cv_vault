@@ -4,6 +4,7 @@ package com.example.cv_vault.controllers;
 import com.example.cv_vault.dtos.UserDto;
 import com.example.cv_vault.services.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("get_user/id/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto user = userService.getUserById(id);
@@ -26,6 +28,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("get_user/email/{email}")
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
         UserDto user = userService.getUserByEmail(email);
@@ -36,6 +39,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("get_all")
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
@@ -47,12 +51,15 @@ public class UserController {
         return ResponseEntity.ok(createdUser);
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("delete_user/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("update_user/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         UserDto updatedUser = userService.updateUser(id, userDto);
