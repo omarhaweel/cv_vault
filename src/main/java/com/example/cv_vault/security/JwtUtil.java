@@ -17,16 +17,16 @@ import java.nio.charset.StandardCharsets;
 public class JwtUtil {
 
     @Value("${jwt.secret:defaultSecretKey}")
-    private String SECRET;
+    private String JWT_SECRET;
 
     private SecretKey secretKey;
     @PostConstruct
     public void init() {
-        System.out.println("🔐 JWT SECRET loaded length: " + (SECRET != null ? SECRET.length() : "null"));
-        if (SECRET == null || SECRET.length() < 32) {
+        System.out.println("🔐 JWT SECRET loaded length: " + (JWT_SECRET != null ? JWT_SECRET.length() : "null"));
+        if (JWT_SECRET == null || JWT_SECRET.length() < 32) {
             throw new IllegalArgumentException("❌ JWT secret must be at least 32 characters long");
         }
-        this.secretKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+        this.secretKey = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(String username) {
