@@ -47,7 +47,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.userDetailsService(userDetailsService) // use the autowired one
+        builder.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
         return builder.build();
     }

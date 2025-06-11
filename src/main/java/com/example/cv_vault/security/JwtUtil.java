@@ -54,7 +54,4 @@ public class JwtUtil {
         return username != null && username.equals(userDetails.getUsername());
     }
 
-    public byte[] getSecretKey() {
-        return secretKey.getEncoded();
-    }
 }

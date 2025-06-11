@@ -69,7 +69,7 @@ public class AuthController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')") // toggle between ADMIN and USER roles as needed to test
+    @PreAuthorize("hasRole('USER')") // toggle between ADMIN and USER roles as needed to test
     @GetMapping("/test")
     public ResponseEntity<String> testAuthentication() {
         return ResponseEntity.ok("User is authenticated");
