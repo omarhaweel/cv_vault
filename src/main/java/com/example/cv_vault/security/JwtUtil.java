@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret:defaultSecretKey}")
+    @Value("${JWT_SECRET:defaultSecretKey}")
     private String JWT_SECRET;
 
     private SecretKey secretKey;
