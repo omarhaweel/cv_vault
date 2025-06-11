@@ -1,9 +1,9 @@
 package com.example.cv_vault.security;
 
-
-import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -16,23 +16,32 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JwtUtil {
 
-    private static final Dotenv dotenv = Dotenv.load();
-    private static final String SECRET = dotenv.get("JWT_SECRET");
-    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+    @Value("${jwt.secret:defaultSecretKey}")
+    private String SECRET;
+
+    private SecretKey secretKey;
+    @PostConstruct
+    public void init() {
+        System.out.println("🔐 JWT SECRET loaded length: " + (SECRET != null ? SECRET.length() : "null"));
+        if (SECRET == null || SECRET.length() < 32) {
+            throw new IllegalArgumentException("❌ JWT secret must be at least 32 characters long");
+        }
+        this.secretKey = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24h
-                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public String extractUsername(String token) {
         try {
             return Jwts.parserBuilder()
-                    .setSigningKey(SECRET_KEY)
+                    .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token)
                     .getBody()
