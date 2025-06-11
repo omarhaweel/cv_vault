@@ -1,6 +1,7 @@
 package com.example.cv_vault.security;
 
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,8 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET = "mySuperSecretKeyForJwtWhichIsLongEnough123!";
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final String SECRET = dotenv.get("JWT_SECRET");
     private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
     public String generateToken(String username) {
