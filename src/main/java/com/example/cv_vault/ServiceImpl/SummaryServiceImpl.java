@@ -42,15 +42,15 @@ public class SummaryServiceImpl implements SummaryService {
         summaryRepository.delete(sumamry);
     }
 
-
-
-
-
-
-
-
-
-
+    @Override
+    public SummaryDto getSummaryByUserId(Long userId) {
+        Summary summary = summaryRepository.getSummaryByUserId(userId);
+        SummaryDto summaryDto = toDto(summary);
+        if (summaryDto == null) {
+            throw new RuntimeException("Summary not found for userId: " + userId);
+        }
+        return summaryDto;
+    }
 
 
 

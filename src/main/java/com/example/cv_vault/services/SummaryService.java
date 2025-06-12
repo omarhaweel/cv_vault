@@ -7,4 +7,5 @@ public interface SummaryService {
     SummaryDto createSummary(SummaryDto summaryDto);
     SummaryDto updateSummary(Long id, SummaryDto summaryDto);
     void deleteSummary(Long id);
+    SummaryDto getSummaryByUserId(Long userId);
 }

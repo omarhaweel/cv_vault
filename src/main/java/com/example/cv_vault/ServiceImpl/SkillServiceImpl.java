@@ -7,20 +7,18 @@ import com.example.cv_vault.repositories.SkillRepository;
 import com.example.cv_vault.services.SkillService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SkillServiceImpl implements SkillService {
+
+
 
     private final SkillRepository skillRepository;
     public SkillServiceImpl(SkillRepository skillRepository) {
         this.skillRepository = skillRepository;
     }
 
-    @Override
-    public SkillDto getSkillById(Long id) {
-        Skill skill = skillRepository.getSkillById(id)
-                .orElseThrow(() -> new RuntimeException("Skill not found with id: " + id));
-        return toDto(skill);
-    }
 
     @Override
     public SkillDto createSkill(SkillDto skillDto) {
@@ -45,6 +43,13 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
+    public List<SkillDto> getAllSkillsByUserID(Long id){
+        return skillRepository.getSkillsByUserId(id).stream()
+                .map(this::toDto)
+                .toList();
+    }
+
+    @Override
     public void deleteSkill(Long id) {
         Skill skill = skillRepository.getSkillById(id)
                 .orElseThrow(() -> new RuntimeException("Skill not found with id: " + id));
@@ -59,4 +64,5 @@ public class SkillServiceImpl implements SkillService {
         skillDto.setDescription(skill.getDescription());
         return skillDto;
     }
+
 }

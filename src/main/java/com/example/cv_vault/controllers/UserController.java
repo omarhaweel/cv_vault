@@ -32,11 +32,7 @@ public class UserController {
     @GetMapping("get_user/email/{email}")
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
         UserDto user = userService.getUserByEmail(email);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(user);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -50,7 +46,6 @@ public class UserController {
         UserDto createdUser = userService.createUser(userDto);
         return ResponseEntity.ok(createdUser);
     }
-
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("delete_user/{id}")
@@ -69,6 +64,4 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 }
