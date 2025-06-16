@@ -46,6 +46,3 @@ Thumbs.db
 # application properties
 application.properties
 application-test.properties
-application-dev.properties
-application-prod.properties
-application-docker.properties
