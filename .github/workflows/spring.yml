@@ -14,14 +14,6 @@ jobs:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: omarhaweel
-          POSTGRES_PASSWORD: omha
-          POSTGRES_DB: cv_dev
-        ports:
-          - 5432:5432
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

@@ -1,15 +1,27 @@
 package com.example.cv_vault.services.kafka;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class KafkaMessageListener {
-
-  @KafkaListener(topics = "my-topic", groupId = "my-group")
+  private final List<String> messages = new ArrayList<>();
+  @KafkaListener(topics = "test-topic", groupId = "my-group")
   public void listen(String message) {
     System.out.println("Received message: " + message);
-    // a received messagge can be processed here
-    // like saving to the db
+    messages.add(message);
   }
+
+  @Scheduled(fixedRate = 60000)
+  public void ShowBatchMessages() {
+    if (!messages.isEmpty()) {
+      System.out.println("Batch of messages received: " + messages);
+      messages.clear();
+    }
+  }
+
 }

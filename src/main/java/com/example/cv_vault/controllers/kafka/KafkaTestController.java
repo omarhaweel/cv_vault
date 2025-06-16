@@ -19,7 +19,7 @@ public class KafkaTestController {
 
   @PostMapping("/send")
   public ResponseEntity<String> sendMessage(@RequestParam String message) {
-    producer.send("test-topic-omar-kafka", message);
+    producer.send("test-topic", message);
     return ResponseEntity.ok("Send Test Message: " + message);
   }
 }
