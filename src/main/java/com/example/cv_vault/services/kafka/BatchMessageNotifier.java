@@ -15,7 +15,7 @@ public class BatchMessageNotifier {
 
     @Scheduled(fixedRate = 10000)
     public void notifyBatchMessages() {
-        System.out.println("🕒 Scheduled task is running...");
+        System.out.println("Scheduled task is running...");
         kafkaMessageListener.ShowBatchMessages();
     }
 }
