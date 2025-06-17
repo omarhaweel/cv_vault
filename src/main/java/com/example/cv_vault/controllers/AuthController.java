@@ -22,21 +22,25 @@ import static org.springframework.security.authorization.AuthorityReactiveAuthor
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
-    @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private CustomUserDetailsService userDetailsService;
-
-    @Autowired
     private JwtUtil jwtUtil;
-
-    @Autowired
     private UserRepository userRepository;
+    private UserServiceImpl userServiceImpl;
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    public AuthController(AuthenticationManager authenticationManager,
+                          CustomUserDetailsService userDetailsService,
+                          JwtUtil jwtUtil,
+                          UserRepository userRepository,
+                          UserServiceImpl userServiceImpl) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.jwtUtil = jwtUtil;
+        this.userRepository = userRepository;
+        this.userServiceImpl = userServiceImpl;
+    }
+
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserDto userDto) {

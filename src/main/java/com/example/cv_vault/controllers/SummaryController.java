@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/summary")
 public class SummaryController {
 
-    @Autowired
     private final SummaryServiceImpl summaryService;
 
     public SummaryController(SummaryServiceImpl summaryService) {
