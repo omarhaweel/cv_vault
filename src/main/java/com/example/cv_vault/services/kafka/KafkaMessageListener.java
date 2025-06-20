@@ -3,7 +3,6 @@ package com.example.cv_vault.services.kafka;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
